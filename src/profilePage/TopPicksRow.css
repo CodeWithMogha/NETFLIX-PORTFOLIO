@@ -1,0 +1,355 @@
+/* ================= HOME CERTIFICATIONS ================= */
+
+.home-cert-section {
+  position: relative;
+  padding: 0px 60px;
+  z-index: 100;
+}
+
+.home-cert-row {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 0px;
+  scroll-behavior: smooth;
+  margin-bottom: 15px;
+}
+
+.home-cert-row::-webkit-scrollbar {
+  display: none;
+}
+
+.home-cert-card {
+  min-width: 260px;
+  height: 235px;
+  background: linear-gradient(180deg, #1f1f1f, #181818);
+  border-radius: 14px;
+  padding: 22px;
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.home-cert-card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.7),
+    0 0 20px rgba(229, 9, 20, 0.2);
+}
+
+.cert-icon {
+  width: 44px;
+  height: 44px;
+  color: #e50914;
+  font-size: 1.9rem;
+  margin-bottom: 14px;
+}
+
+.cert-icon img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.home-cert-card h3 {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.cert-issuer {
+  font-size: 0.85rem;
+  color: #b3b3b3;
+}
+
+.cert-year {
+  font-size: 0.75rem;
+  color: #8c8c8c;
+}
+
+.cert-link-icon {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  opacity: 0.6;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.home-cert-card:hover .cert-link-icon {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+/* ================= SKILLS – TOP 10 STYLE ================= */
+
+.top10-section {
+  position: relative;
+  padding: 0px 60px;
+  z-index: 100;
+}
+
+.row-title {
+  font-size: 1.6rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  font-weight: 600;
+}
+
+
+/* Scroll Row */
+.top10-row {
+  display: flex;
+  gap: 70px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 0px;
+  margin-bottom: 20px;
+}
+
+.top10-row::-webkit-scrollbar {
+  display: none;
+}
+
+/* Each Item */
+.top10-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* 🔥 BIG NETFLIX NUMBER */
+.rank-number {
+  font-size: 240px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.07);
+  line-height: 1;
+  position: absolute;
+  left: -25px;
+  /* 👈 FIXED */
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Skill Card */
+.top10-card {
+  position: relative;
+  width: 180px;
+  height: 240px;
+  background: linear-gradient(145deg, #141414, #1f1f1f);
+  border-radius: 12px;
+  margin-left: 95px;
+  z-index: 2;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.top10-card:hover {
+  transform: scale(1.18);
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.9),
+    0 0 25px rgba(229, 9, 20, 0.25);
+}
+
+/* Skill Logo */
+.skill-logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-bottom: 14px;
+}
+
+/* Fallback Logo */
+.skill-fallback-logo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #e50914;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+/* Skill Name */
+.skill-title {
+  color: #ffffff;
+  font-size: 0.95rem;
+  text-align: center;
+  padding: 0 10px;
+  font-weight: 500;
+}
+
+/* Arrows */
+.row-arrow {
+  position: absolute;
+  top: 55%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 90px;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  font-size: 1.6rem;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.25s ease, background 0.25s ease;
+}
+
+.top10-section:hover .row-arrow,
+.home-cert-section:hover .row-arrow {
+  opacity: 1;
+}
+
+.row-arrow.left {
+  left: 10px;
+}
+
+.row-arrow.right {
+  right: 10px;
+}
+
+.row-arrow:hover {
+  background: rgba(229, 9, 20, 0.85);
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .rank-number {
+    font-size: 160px;
+    left: -15px;
+  }
+
+  .top10-card {
+    width: 150px;
+    height: 210px;
+    margin-left: 75px;
+  }
+}
+
+/* ================= STALKER — MUSIC ALBUM CARDS ================= */
+
+.album-row-card {
+  min-width: 180px;
+  max-width: 180px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.album-row-card:hover {
+  transform: translateY(-6px);
+}
+
+.album-row-art {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.album-row-card:hover .album-row-art {
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(229, 9, 20, 0.35);
+  transform: scale(1.04);
+}
+
+.album-row-info {
+  padding: 10px 4px 0;
+}
+
+.album-row-info h4 {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.album-row-info p {
+  font-size: 0.78rem;
+  color: #b3b3b3;
+  margin: 0;
+}
+
+/* ================= STALKER — BOOK CARDS ================= */
+
+.stalker-media-card {
+  min-width: 160px;
+  max-width: 160px;
+  background: linear-gradient(180deg, #1f1f1f, #181818);
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.stalker-media-card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.7),
+    0 0 20px rgba(229, 9, 20, 0.25);
+}
+
+.stalker-book-thumb {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  display: block;
+  border-bottom: 2px solid #e50914;
+  transition: transform 0.3s ease;
+}
+
+.stalker-media-card:hover .stalker-book-thumb {
+  transform: scale(1.04);
+}
+
+.stalker-media-body {
+  padding: 10px 12px;
+}
+
+.stalker-media-body h3 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stalker-media-body p {
+  font-size: 0.76rem;
+  color: #b3b3b3;
+  margin-bottom: 4px;
+}
+
+.stalker-media-body span {
+  font-size: 0.70rem;
+  color: #888;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

@@ -1,0 +1,167 @@
+.profile-page {
+  position: relative;
+  width: 100%;
+  height: calc(100vw * 9 / 16);
+  max-height: 86vh;
+  min-height: 500px;
+  overflow: hidden;
+  color: #fff;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .profile-page {
+    height: 100vh;
+    padding-bottom: 5rem;
+  }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.95) 0%,
+      rgba(0, 0, 0, 0.85) 5%,
+      rgba(0, 0, 0, 0.5) 52%,
+      rgba(0, 0, 0, 0.2) 75%,
+      rgba(0, 0, 0, 0) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.netflix-mute-btn {
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.55);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+
+  cursor: pointer;
+}
+
+/* Hover (desktop only) */
+.netflix-mute-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+  border-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.08);
+}
+
+/* Active (click feedback) */
+.netflix-mute-btn:active {
+  transform: scale(0.96);
+}
+
+/* SVG icon sizing */
+.netflix-mute-btn svg {
+  width: 22px;
+  height: 22px;
+  opacity: 0.9;
+}
+
+/* Mobile refinement */
+@media (max-width: 768px) {
+  .netflix-mute-btn {
+    width: 48px;
+    height: 48px;
+  }
+
+  .netflix-mute-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.netflix-rating-badge {
+  display: flex;
+  align-items: center;
+
+  height: 48px;
+  padding: 0 19px;
+
+  margin-left: 14px;
+
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+
+  font-size: 18px;
+  font-weight: 500;
+
+  border-left: 4px solid #fff;
+}
+
+/* Mobile refinement */
+@media (max-width: 768px) {
+  .netflix-rating-badge {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
+
+.netflix-controls {
+  position: absolute;
+  bottom: 135px;
+  right: 0px;
+
+  display: flex;
+  align-items: center;
+
+  background: none;
+  padding: 0;
+
+  z-index: 60;
+}
+
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  z-index: 0;
+}
+
+.hero-content-positioned {
+  position: absolute;
+  left: 60px;
+  right: 60px;
+  bottom: 0%;
+  /* Dropped down slightly to match Netflix margin */
+  padding-bottom: 6vw;
+  /* Add padding to push content up without shifting the container */
+  z-index: 150;
+  /* Ensure this is firmly above the rows container (which is 100) */
+  width: auto;
+  pointer-events: none;
+  /* Let clicks pass through empty areas */
+}
+
+.hero-content-positioned>* {
+  pointer-events: auto;
+  /* Re-enable clicks on actual content like buttons */
+}
+
+.profile-rows-container {
+  position: relative;
+  z-index: 100;
+  margin-top: -6vw;
+  /* Slightly less aggressive pull-up so we don't eat the whole title */
+  min-height: 200px;
+}
+
+@media (max-width: 768px) {
+  .profile-rows-container {
+    margin-top: -15vw;
+  }
+}
