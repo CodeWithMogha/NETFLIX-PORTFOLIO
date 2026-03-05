@@ -10,9 +10,33 @@
   display: flex;
   gap: 20px;
   overflow-x: auto;
-  padding-bottom: 0px;
+  overflow-y: hidden;
   scroll-behavior: smooth;
-  margin-bottom: 15px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: -20px;
+  margin-bottom: -15px;
+  max-height: 360px;
+  transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.home-cert-row.expanded-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  overflow-x: hidden;
+  max-height: 2500px;
+}
+
+.home-cert-row.expanded-grid .home-cert-card,
+.home-cert-row.expanded-grid .album-row-card,
+.home-cert-row.expanded-grid .stalker-media-card {
+  width: auto;
+  margin-right: 0;
+  flex: 1 1 260px;
+  max-width: 100%;
 }
 
 .home-cert-row::-webkit-scrollbar {
@@ -22,28 +46,72 @@
 .home-cert-card {
   min-width: 260px;
   height: 235px;
-  background: linear-gradient(180deg, #1f1f1f, #181818);
-  border-radius: 14px;
-  padding: 22px;
+  background: #181818;
+  border-radius: 8px;
+  padding: 24px;
   color: #fff;
   text-decoration: none;
   position: relative;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease, border-color 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.home-cert-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, rgba(229, 9, 20, 0.1) 0%, rgba(24, 24, 24, 0) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.home-cert-card::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background-color: #e50914;
+  transition: width 0.3s ease;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .home-cert-card:hover {
-  transform: translateY(-8px);
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.7),
-    0 0 20px rgba(229, 9, 20, 0.2);
+  transform: scale(1.05);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.8), 0 0 20px rgba(229, 9, 20, 0.15);
+  z-index: 10;
+}
+
+.home-cert-card:hover::before {
+  opacity: 1;
+}
+
+.home-cert-card:hover::after {
+  width: 100%;
 }
 
 .cert-icon {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   color: #e50914;
-  font-size: 1.9rem;
-  margin-bottom: 14px;
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.home-cert-card:hover .cert-icon {
+  transform: translateX(5px) scale(1.1);
 }
 
 .cert-icon img {
@@ -92,20 +160,73 @@
 .row-title {
   font-size: 1.6rem;
   color: #ffffff;
-  margin-bottom: 10px;
-  margin-top: 15px;
+  margin-bottom: 1px;
+  margin-top: 1px;
+  /* Reduced gap */
   font-weight: 600;
+  text-align: left;
+  width: 100%;
 }
 
 
 /* Scroll Row */
+.section-header-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 60px;
+}
+
+.expand-section-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+
+.expand-section-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+}
+
 .top10-row {
   display: flex;
-  gap: 70px;
+  gap: 50px;
   overflow-x: auto;
+  overflow-y: hidden;
   scroll-behavior: smooth;
-  padding-bottom: 0px;
-  margin-bottom: 20px;
+  padding-top: 1px;
+  padding-bottom: 40px;
+  padding-left: 30px;
+  /* Stops left side overflow from clipping numbers */
+  padding-right: 30px;
+  margin-top: -30px;
+  margin-bottom: -20px;
+  margin-left: -30px;
+  /* Pulls container back to align with header */
+  max-height: 380px;
+  transition: max-height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.top10-row.expanded-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px 70px;
+  overflow-x: hidden;
+  max-height: 2500px;
+}
+
+.top10-row.expanded-grid .top10-item {
+  width: auto;
+  flex: 1 1 280px;
+  max-width: 100%;
 }
 
 .top10-row::-webkit-scrollbar {
@@ -120,76 +241,81 @@
   flex-shrink: 0;
 }
 
-/* 🔥 BIG NETFLIX NUMBER */
+/* 🔥 BIG NETFLIX NUMBER - SOLID WHITE */
 .rank-number {
   font-size: 240px;
-  font-weight: 800;
-  color: rgba(255, 255, 255, 0.07);
+  font-weight: 900;
+  color: #ffffff;
+  /* Solid White */
+  /* Remove the hollow stroke, add a subtle shadow for depth against light bg */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
   line-height: 1;
   position: absolute;
-  left: -25px;
-  /* 👈 FIXED */
+  left: -20px;
+  bottom: -15px;
   z-index: 1;
   pointer-events: none;
+  letter-spacing: -15px;
 }
+
 
 /* Skill Card */
 .top10-card {
   position: relative;
-  width: 180px;
-  height: 240px;
-  background: linear-gradient(145deg, #141414, #1f1f1f);
-  border-radius: 12px;
-  margin-left: 95px;
+  width: 160px;
+  background: transparent;
+  margin-left: 110px;
   z-index: 2;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 
   cursor: pointer;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.35s ease;
+  padding-top: 30px;
+  padding-bottom: 20px;
 }
 
 .top10-card:hover {
-  transform: scale(1.18);
-  box-shadow:
-    0 25px 70px rgba(0, 0, 0, 0.9),
-    0 0 25px rgba(229, 9, 20, 0.25);
+  transform: scale(1.15);
 }
 
 /* Skill Logo */
 .skill-logo {
-  width: 64px;
-  height: 64px;
+  width: 90px;
+  height: 90px;
   object-fit: contain;
-  margin-bottom: 14px;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.8));
 }
 
 /* Fallback Logo */
 .skill-fallback-logo {
-  width: 64px;
-  height: 64px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   background: #e50914;
   color: #fff;
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 14px;
+  margin-bottom: 20px;
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.8);
 }
 
 /* Skill Name */
 .skill-title {
   color: #ffffff;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   text-align: center;
   padding: 0 10px;
-  font-weight: 500;
+  font-weight: 600;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
 }
 
 /* Arrows */
@@ -231,12 +357,13 @@
   .rank-number {
     font-size: 160px;
     left: -15px;
+    letter-spacing: -8px;
   }
 
   .top10-card {
-    width: 150px;
-    height: 210px;
-    margin-left: 75px;
+    width: 140px;
+    margin-left: 85px;
+    padding-top: 20px;
   }
 }
 

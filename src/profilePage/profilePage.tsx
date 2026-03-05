@@ -5,6 +5,7 @@ import './profilePage.css';
 import Navbar from '../components/NavBar';
 import ProfileBanner from './ProfileBanner';
 import TopPicksRow from './TopPicksRow';
+import { VscUnmute, VscMute } from 'react-icons/vsc';
 
 
 type ProfileType = 'recruiter' | 'developer' | 'stalker' | 'adventure';
@@ -62,8 +63,8 @@ const ProfilePage: React.FC = () => {
         <div className="hero-overlay" />
 
         <div className="netflix-controls">
-          <button onClick={toggleMute} className="netflix-mute-btn">
-            🔊
+          <button onClick={toggleMute} className="netflix-mute-btn" style={{ zIndex: 200, pointerEvents: 'auto' }}>
+            {isMuted ? <VscMute size={20} color="white" /> : <VscUnmute size={20} color="white" />}
           </button>
           <div className="netflix-rating-badge">U/A 13+</div>
         </div>

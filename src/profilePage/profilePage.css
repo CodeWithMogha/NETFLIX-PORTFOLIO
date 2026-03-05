@@ -1,12 +1,13 @@
 .profile-page {
   position: relative;
   width: 100%;
-  height: calc(100vw * 9 / 16);
-  max-height: 86vh;
+  height: calc(100vw * 8.5 / 16);
+  max-height: 95vh;
   min-height: 500px;
   overflow: hidden;
   color: #fff;
 }
+
 
 h1 {
   font-size: 2.5rem;
@@ -34,25 +35,25 @@ h1 {
 }
 
 .netflix-mute-btn {
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background: rgba(0, 0, 0, 0.55);
-  border: 2px solid rgba(255, 255, 255, 0.85);
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.7);
   border-radius: 50%;
 
   cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 /* Hover (desktop only) */
 .netflix-mute-btn:hover {
-  background: rgba(0, 0, 0, 0.8);
-  border-color: rgba(255, 255, 255, 0.9);
-  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
 }
 
 /* Active (click feedback) */
@@ -62,21 +63,14 @@ h1 {
 
 /* SVG icon sizing */
 .netflix-mute-btn svg {
-  width: 22px;
-  height: 22px;
-  opacity: 0.9;
+  opacity: 1;
 }
 
 /* Mobile refinement */
 @media (max-width: 768px) {
   .netflix-mute-btn {
-    width: 48px;
-    height: 48px;
-  }
-
-  .netflix-mute-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 36px;
+    height: 36px;
   }
 }
 
@@ -84,18 +78,18 @@ h1 {
   display: flex;
   align-items: center;
 
-  height: 48px;
-  padding: 0 19px;
+  height: 40px;
+  padding: 0 50px 0 15px;
 
-  margin-left: 14px;
+  margin-left: 20px;
 
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(20, 20, 20, 0.8);
   color: #fff;
 
-  font-size: 18px;
+  font-size: 1.2rem;
   font-weight: 500;
 
-  border-left: 4px solid #fff;
+  border-left: 3px solid #dcdcdc;
 }
 
 /* Mobile refinement */
@@ -108,7 +102,8 @@ h1 {
 
 .netflix-controls {
   position: absolute;
-  bottom: 135px;
+  bottom: 15vw;
+  /* Just above Skills / View All */
   right: 0px;
 
   display: flex;
@@ -117,8 +112,10 @@ h1 {
   background: none;
   padding: 0;
 
-  z-index: 60;
+  z-index: 999;
 }
+
+
 
 .hero-video {
   position: absolute;
@@ -137,15 +134,13 @@ h1 {
   left: 60px;
   right: 60px;
   bottom: 0%;
-  /* Dropped down slightly to match Netflix margin */
-  padding-bottom: 6vw;
-  /* Add padding to push content up without shifting the container */
+  padding-bottom: 9vw;
+  /* Comfortable gap above Skills */
   z-index: 150;
-  /* Ensure this is firmly above the rows container (which is 100) */
   width: auto;
   pointer-events: none;
-  /* Let clicks pass through empty areas */
 }
+
 
 .hero-content-positioned>* {
   pointer-events: auto;
@@ -155,13 +150,16 @@ h1 {
 .profile-rows-container {
   position: relative;
   z-index: 100;
-  margin-top: -6vw;
-  /* Slightly less aggressive pull-up so we don't eat the whole title */
+  margin-top: -10vw;
+  /* Skills peeks out mid-height at the bottom of the hero */
   min-height: 200px;
 }
 
+
+
+
 @media (max-width: 768px) {
   .profile-rows-container {
-    margin-top: -15vw;
+    margin-top: -5vw;
   }
 }

@@ -7,6 +7,7 @@ import WorkExperience from '../pages/WorkExperience';
 import Projects from '../pages/Projects';
 import { FaUniversity } from 'react-icons/fa';
 import ContactSection from '../components/ContactSection';
+import Recommendations from '../pages/Recommendations';
 
 // ── Music album images ──────────────────────────────────────────────
 import album21Pilots from '../images/music/21 Pilots Album Cover.jpg';
@@ -97,6 +98,10 @@ const TopPicksRow: React.FC<TopPicksRowProps> = ({ profile }) => {
 
   const [skills, setSkills] = useState<Skill[]>([]);
   const [certs, setCerts] = useState<Certification[]>([]);
+  const [isSkillsExpanded, setIsSkillsExpanded] = useState(false);
+  const [isCertsExpanded, setIsCertsExpanded] = useState(false);
+  const [isMusicExpanded, setIsMusicExpanded] = useState(false);
+  const [isBooksExpanded, setIsBooksExpanded] = useState(false);
 
   useEffect(() => {
     getSkills().then(setSkills).catch(console.error);
@@ -109,34 +114,28 @@ const TopPicksRow: React.FC<TopPicksRowProps> = ({ profile }) => {
 
   return (
     <>
-      {/* ================= CERTIFICATIONS ================= */}
-      {(profile === 'recruiter' || profile === 'adventure') && (
-        <section className="home-cert-section">
-          <h2 className="row-title">Certifications</h2>
-          <button className="row-arrow left" onClick={() => scroll(certRef, 'left')}>❮</button>
-          <button className="row-arrow right" onClick={() => scroll(certRef, 'right')}>❯</button>
-          <div className="home-cert-row" ref={certRef}>
-            {certs.map((cert, i) => (
-              <a key={i} href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="home-cert-card">
-                <div className="cert-icon">
-                  {cert.logo?.url ? <img src={cert.logo.url} alt={cert.title} /> : <FaUniversity />}
-                </div>
-                <h3>{cert.title}</h3>
-                <p className="cert-issuer">{cert.issuer}</p>
-                <span className="cert-year">Issued: {cert.year}</span>
-              </a>
-            ))}
-          </div>
-        </section>
-      )}
 
       {/* ================= SKILLS ================= */}
       {(profile === 'recruiter' || profile === 'developer') && (
         <section className="top10-section">
-          <h2 className="row-title">Skills</h2>
-          <button className="row-arrow left" onClick={() => scroll(skillRef, 'left')}>❮</button>
-          <button className="row-arrow right" onClick={() => scroll(skillRef, 'right')}>❯</button>
-          <div className="top10-row" ref={skillRef}>
+          <div className="section-header-flex">
+            <h2 className="row-title">Skills</h2>
+            <button
+              className="expand-section-btn"
+              onClick={() => setIsSkillsExpanded(!isSkillsExpanded)}
+            >
+              {isSkillsExpanded ? 'Collapse ⌃' : 'View All ⌄'}
+            </button>
+          </div>
+
+          {!isSkillsExpanded && (
+            <>
+              <button className="row-arrow left" onClick={() => scroll(skillRef, 'left')}>❮</button>
+              <button className="row-arrow right" onClick={() => scroll(skillRef, 'right')}>❯</button>
+            </>
+          )}
+
+          <div className={`top10-row ${isSkillsExpanded ? 'expanded-grid' : ''}`} ref={skillRef}>
             {skills.map((skill, i) => (
               <div key={i} className="top10-item">
                 <div className="rank-number">{i + 1}</div>
@@ -154,6 +153,41 @@ const TopPicksRow: React.FC<TopPicksRowProps> = ({ profile }) => {
         </section>
       )}
 
+      {/* ================= CERTIFICATIONS ================= */}
+      {profile === 'recruiter' && (
+        <section className="home-cert-section">
+          <div className="section-header-flex">
+            <h2 className="row-title">Certifications</h2>
+            <button
+              className="expand-section-btn"
+              onClick={() => setIsCertsExpanded(!isCertsExpanded)}
+            >
+              {isCertsExpanded ? 'Collapse ⌃' : 'View All ⌄'}
+            </button>
+          </div>
+
+          {!isCertsExpanded && (
+            <>
+              <button className="row-arrow left" onClick={() => scroll(certRef, 'left')}>❮</button>
+              <button className="row-arrow right" onClick={() => scroll(certRef, 'right')}>❯</button>
+            </>
+          )}
+
+          <div className={`home-cert-row ${isCertsExpanded ? 'expanded-grid' : ''}`} ref={certRef}>
+            {certs.map((cert, i) => (
+              <a key={i} href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="home-cert-card">
+                <div className="cert-icon">
+                  {cert.logo?.url ? <img src={cert.logo.url} alt={cert.title} /> : <FaUniversity />}
+                </div>
+                <h3>{cert.title}</h3>
+                <p className="cert-issuer">{cert.issuer}</p>
+                <span className="cert-year">Issued: {cert.year}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* ================= PROJECTS ================= */}
       {profile === 'developer' && (
         <section className="home-cert-section">
@@ -163,17 +197,29 @@ const TopPicksRow: React.FC<TopPicksRowProps> = ({ profile }) => {
       )}
 
       {/* ================= EXPERIENCE ================= */}
-      {profile === 'recruiter' && (
-        <WorkExperience isHorizontal={false} />
-      )}
+      {/* Removed from recruiter profile per user request */}
 
       {/* ================= MUSIC (STALKER ONLY) ================= */}
       {profile === 'stalker' && (
         <section className="home-cert-section">
-          <h2 className="row-title">Music I Love</h2>
-          <button className="row-arrow left" onClick={() => scroll(musicRef, 'left')}>❮</button>
-          <button className="row-arrow right" onClick={() => scroll(musicRef, 'right')}>❯</button>
-          <div className="home-cert-row" ref={musicRef}>
+          <div className="section-header-flex">
+            <h2 className="row-title">Music I Love</h2>
+            <button
+              className="expand-section-btn"
+              onClick={() => setIsMusicExpanded(!isMusicExpanded)}
+            >
+              {isMusicExpanded ? 'Collapse ⌃' : 'View All ⌄'}
+            </button>
+          </div>
+
+          {!isMusicExpanded && (
+            <>
+              <button className="row-arrow left" onClick={() => scroll(musicRef, 'left')}>❮</button>
+              <button className="row-arrow right" onClick={() => scroll(musicRef, 'right')}>❯</button>
+            </>
+          )}
+
+          <div className={`home-cert-row ${isMusicExpanded ? 'expanded-grid' : ''}`} ref={musicRef}>
             {albums.map((album, i) => (
               <div key={i} className="album-row-card">
                 <img src={album.imgSrc} alt={album.title} className="album-row-art" />
@@ -190,10 +236,24 @@ const TopPicksRow: React.FC<TopPicksRowProps> = ({ profile }) => {
       {/* ================= READING (STALKER ONLY) ================= */}
       {profile === 'stalker' && (
         <section className="home-cert-section">
-          <h2 className="row-title">Books I've Read</h2>
-          <button className="row-arrow left" onClick={() => scroll(readRef, 'left')}>❮</button>
-          <button className="row-arrow right" onClick={() => scroll(readRef, 'right')}>❯</button>
-          <div className="home-cert-row" ref={readRef}>
+          <div className="section-header-flex">
+            <h2 className="row-title">Books I've Read</h2>
+            <button
+              className="expand-section-btn"
+              onClick={() => setIsBooksExpanded(!isBooksExpanded)}
+            >
+              {isBooksExpanded ? 'Collapse ⌃' : 'View All ⌄'}
+            </button>
+          </div>
+
+          {!isBooksExpanded && (
+            <>
+              <button className="row-arrow left" onClick={() => scroll(readRef, 'left')}>❮</button>
+              <button className="row-arrow right" onClick={() => scroll(readRef, 'right')}>❯</button>
+            </>
+          )}
+
+          <div className={`home-cert-row ${isBooksExpanded ? 'expanded-grid' : ''}`} ref={readRef}>
             {books.map((book, i) => (
               <div key={i} className="stalker-media-card">
                 <img src={book.imgSrc} alt={book.title} className="stalker-media-thumb stalker-book-thumb" />
@@ -208,10 +268,13 @@ const TopPicksRow: React.FC<TopPicksRowProps> = ({ profile }) => {
         </section>
       )}
 
-      {/* ================= EXPERIENCE (STALKER - BOTTOM) ================= */}
-      {profile === 'stalker' && (
+      {/* ================= EXPERIENCE (ALL PROFILES BUT ADVENTURE) ================= */}
+      {(profile === 'stalker' || profile === 'recruiter' || profile === 'developer') && (
         <WorkExperience isHorizontal={true} />
       )}
+
+      {/* ================= RECOMMENDATIONS (RECRUITER ONLY) ================= */}
+      {profile === 'recruiter' && <Recommendations />}
 
       {/* ================= CONTACT (ALL PROFILES) ================= */}
       <ContactSection />

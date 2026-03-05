@@ -1,27 +1,94 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './Recommendations.css';
-import chrisProfilePic from '../images/chris.jpg'; // Adjust the path based on your directory structure
+import { getRecommendations } from '../queries/getRecommendations';
+import { Recommendation } from '../types';
+import { FaLinkedin, FaEnvelope, FaQuoteLeft } from 'react-icons/fa';
 
 const Recommendations: React.FC = () => {
+  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
+  const [loading, setLoading] = useState(true);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const fetchRecommendations = async () => {
+      try {
+        const data = await getRecommendations();
+        setRecommendations(data);
+      } catch (error) {
+        console.error("Error fetching recommendations:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRecommendations();
+  }, []);
+
+  const scroll = (dir: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 600;
+      scrollRef.current.scrollBy({
+        left: dir === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  if (loading || recommendations.length === 0) return null;
+
   return (
-    <div className='timeline-container'>
-      <div className="recommendation-card">
-        <div className="recommendation-header">
-          <img src={chrisProfilePic} alt="Chris Smith" className="profile-pic" />
-          <div>
-            <h3>Chris Smith</h3>
-            <p>Head of Kajima Community</p>
-            <p className="date">October 24, 2024</p>
-          </div>
-        </div>
-        <div className="recommendation-body">
-          <p>✨ "It is with great pleasure that I write this reference for Sumanth, who worked for us as a software developer at Kajima from June 2023. Unfortunately, due to a change in the company’s structure, we have made the difficult decision to make their position redundant. This in no way reflects on their performance, which was consistently excellent.</p>
-          <p>During their time with us, Sumanth demonstrated strong technical expertise, a passion for problem-solving, a willingness to learn, and a collaborative spirit that greatly contributed to our team’s success. They played a pivotal role in developing and maintaining key features of our software <strong>BookingsPlus</strong> and <strong>NHS Open Space</strong>, consistently delivering high-quality code while meeting project deadlines. Their ability to quickly adapt to new technologies and their proactive approach to finding innovative solutions set them apart."</p>
-          <p>💼 "Sumanth also showed exceptional teamwork and communication skills, effectively collaborating with cross-functional teams, including product managers, designers, and QA. Their professionalism, positive attitude, and dedication to their work made them an asset to the team."</p>
-          <p>🌟 "I have no doubt that Sumanth will be a valuable addition to any organization, and I wholeheartedly recommend them for any future opportunities."</p>
+    <section className="home-cert-section">
+      <h2 className="row-title">Recommendations</h2>
+
+      <div className="row-container-relative">
+        {recommendations.length > 1 && (
+          <>
+            <button className="row-arrow left" onClick={() => scroll('left')}>❮</button>
+            <button className="row-arrow right" onClick={() => scroll('right')}>❯</button>
+          </>
+        )}
+
+        <div className="recommendations-row" ref={scrollRef}>
+          {recommendations.map((rec, index) => (
+            <div key={index} className="recommendation-card-integrated">
+              <div className="rec-quote-icon"><FaQuoteLeft /></div>
+
+              <div className="rec-header">
+                {rec.photo?.url ? (
+                  <img src={rec.photo.url} alt={rec.name} className="rec-photo" />
+                ) : (
+                  <div className="rec-photo-placeholder">
+                    {rec.name.charAt(0)}
+                  </div>
+                )}
+                <div className="rec-meta">
+                  <h4 className="rec-name">{rec.name}</h4>
+                  <p className="rec-title">{rec.designation}</p>
+                  <p className="rec-org">{rec.organization}</p>
+                </div>
+              </div>
+
+              <div className="rec-body">
+                <p>"{rec.message}"</p>
+              </div>
+
+              <div className="rec-footer">
+                {rec.linkedin && (
+                  <a href={rec.linkedin} target="_blank" rel="noopener noreferrer" className="rec-icon">
+                    <FaLinkedin />
+                  </a>
+                )}
+                {rec.email && (
+                  <a href={`mailto:${rec.email}`} className="rec-icon">
+                    <FaEnvelope />
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

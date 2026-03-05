@@ -68,3 +68,16 @@ export interface Skill {
   description: string;
   icon: string;
 }
+
+export interface Recommendation {
+  name: string;
+  designation: string;
+  organization: string;
+  message: string;
+  linkedin?: string;
+  email?: string;
+  photo: {
+    url: string;
+  };
+  order: number;
+}

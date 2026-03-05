@@ -66,8 +66,8 @@
 
 /* Profile Icon */
 .profile-icon {
-  width: 55px;
-  height: 55px;
+  width: 42px;
+  height: 42px;
   border-radius: 15%;
   transition: transform 0.3s;
   margin-right: 10rem;
