@@ -17,16 +17,6 @@ import joji2 from '../images/music/Joji Album Cover.jpeg';
 import starboy from '../images/music/Starboy.png';
 import weekndTrilogy from '../images/music/The Weeknd Trilogy .png';
 
-const favoriteGenres = [
-  "Rock",
-  "Classic Rock",
-  "Hard Rock",
-  "Blues",
-  "Alternative",
-  "Hip Hop",
-  "Indie",
-  "R&B"
-];
 
 const favoriteAlbums = [
   { title: "Blurryface", artist: "Twenty One Pilots", imgSrc: blurryface },

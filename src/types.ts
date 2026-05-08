@@ -1,11 +1,8 @@
 // types.ts
 
 export interface ProfileBanner {
-  backgroundImage: { url: string };
   headline: string;
-  resumeLink: {
-    url: string;
-  };
+  resumeLink: string;
   linkedinLink: string;
   profileSummary: string;
 }
@@ -28,16 +25,11 @@ export interface TimelineItem {
 
 export interface Project {
   title: string;
-  projectDescription: string; // Hygraph field name
-  techUsed?: {
-    text: string;       // Rich text returns { text }
-  };
-  image: {
+  link?: string;
+  image?: {
     url: string;
   };
 }
-
-// src/types.ts
 
 export type Certification = {
   title: string;
@@ -63,10 +55,11 @@ export interface ContactMe {
 }
 
 export interface Skill {
-  name: string;
+  title: string;
   category: string;
-  description: string;
-  icon: string;
+  image?: {
+    url: string;
+  } | null;
 }
 
 export interface Recommendation {
@@ -76,8 +69,20 @@ export interface Recommendation {
   message: string;
   linkedin?: string;
   email?: string;
+  link?: string;
   photo: {
     url: string;
   };
   order: number;
+}
+
+export interface Blog {
+  title: string;
+  slug: string;
+  description: string;
+  tag: string;
+  published: string;
+  img?: {
+    url: string;
+  };
 }

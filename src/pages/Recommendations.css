@@ -140,25 +140,57 @@
 
 @media (max-width: 768px) {
   .recommendation-card-integrated {
-    padding: 25px;
+    padding: 20px;
+  }
+
+  .rec-header {
+    margin-bottom: 16px;
   }
 
   .rec-photo,
   .rec-photo-placeholder {
-    width: 80px;
-    height: 80px;
-    margin-right: 20px;
+    width: 60px;
+    height: 60px;
+    margin-right: 14px;
+    border-width: 2px;
   }
 
   .rec-photo-placeholder {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .rec-name {
-    font-size: 1.2rem;
+    font-size: 1.05rem;
+  }
+
+  .rec-title {
+    font-size: 0.8rem;
+  }
+
+  .rec-org {
+    font-size: 0.75rem;
+  }
+
+  .rec-body {
+    margin-bottom: 16px;
   }
 
   .rec-body p {
-    font-size: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .rec-footer {
+    padding-top: 16px;
+  }
+
+  .rec-icon {
+    font-size: 1.3rem;
+  }
+  
+  .rec-quote-icon {
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
   }
 }

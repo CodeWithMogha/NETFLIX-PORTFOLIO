@@ -1,44 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './Projects.css';
-import {
-  FaReact, FaNodeJs, FaAws, FaDatabase, FaDocker, FaAngular,
-  FaGithub, FaGitlab, FaGoogle, FaJava, FaJenkins,
-  FaMicrosoft, FaPython, FaVuejs
-} from 'react-icons/fa';
-import {
-  SiRubyonrails, SiPostgresql, SiMongodb, SiMaterialdesign,
-  SiHtml5, SiCss3, SiJquery, SiAwsamplify,
-  SiFirebase, SiTerraform, SiArgo
-} from 'react-icons/si';
-import { GrDeploy, GrKubernetes } from 'react-icons/gr';
 import { Project } from '../types';
 import { getProjects } from '../queries/getProjects';
-
-const techIcons: { [key: string]: JSX.Element } = {
-  'ReactJS': <FaReact />, 'React': <FaReact />,
-  'NodeJS': <FaNodeJs />, 'Node.js': <FaNodeJs />, 'Express.js': <FaNodeJs />,
-  'AWS': <FaAws />, 'Cognito': <FaAws />, 'Lambda': <FaAws />, 'ECS': <FaAws />, 'AWS-ECS': <SiAwsamplify />,
-  'PostgreSQL': <SiPostgresql />, 'MongoDB': <SiMongodb />,
-  'Ruby On Rails': <SiRubyonrails />, 'Material UI': <SiMaterialdesign />,
-  'HTML5': <SiHtml5 />, 'CSS3': <SiCss3 />, 'jQuery': <SiJquery />, 'JQuery': <SiJquery />,
-  'Jenkins': <FaJenkins />, 'Docker': <FaDocker />,
-  'GraphQL': <FaDatabase />, 'CI/CD': <FaGitlab />, 'GitLab': <FaGitlab />, 'GitHub': <FaGithub />,
-  'Heroku': <GrDeploy />, 'Netlify': <GrDeploy />,
-  'Firebase': <SiFirebase />, 'GCP': <FaGoogle />, 'Azure': <FaMicrosoft />,
-  'Kubernetes': <GrKubernetes />, 'Terraform': <SiTerraform />, 'ArgoCD': <SiArgo />,
-  'Java': <FaJava />, 'Spring Boot': <FaJava />, 'Hibernate': <FaJava />,
-  'Maven': <FaJava />, 'Gradle': <FaJava />, 'JUnit': <FaJava />, 'Mockito': <FaJava />,
-  'Python': <FaPython />, 'Angular': <FaAngular />, 'Vue.js': <FaVuejs />,
-  'Next.js': <FaReact />, 'Gatsby': <FaReact />, 'Nuxt.js': <FaVuejs />,
-  'Redux': <FaReact />, 'Vuex': <FaVuejs />,
-  'Tailwind CSS': <SiCss3 />, 'Bootstrap': <SiCss3 />, 'Jest': <FaReact />,
-};
+import { FaExternalLinkAlt } from 'react-icons/fa';
 
 const Projects: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const rowRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     async function fetchProjects() {
@@ -56,60 +27,89 @@ const Projects: React.FC = () => {
   }, []);
 
   const scroll = (dir: 'left' | 'right') => {
-    rowRef.current?.scrollBy({ left: dir === 'left' ? -320 : 320, behavior: 'smooth' });
+    if (scrollRef.current) {
+      const scrollAmount = 600;
+      scrollRef.current.scrollBy({
+        left: dir === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
   };
 
-  if (loading) return <div className="projects-loading">Loading projects...</div>;
-  if (error) return <div className="projects-error">{error}</div>;
-  if (projects.length === 0) return <div className="projects-empty">No projects found.</div>;
+  if (loading) return <div className="home-cert-section" style={{ textAlign: 'center', color: '#fff', padding: '60px' }}>Loading projects...</div>;
+  if (error) return <div className="home-cert-section" style={{ textAlign: 'center', color: '#e50914', padding: '60px' }}>{error}</div>;
+  if (projects.length === 0) return null;
 
   return (
-    <div className="projects-section">
-      <button className="row-arrow left" onClick={() => scroll('left')}>❮</button>
-      <button className="row-arrow right" onClick={() => scroll('right')}>❯</button>
+    <section className="home-cert-section">
+      <div className="section-header-flex">
+        <h2 className="row-title">Projects</h2>
+        <button
+          className="expand-section-btn"
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          {isExpanded ? 'Collapse ⌃' : 'View All ⌄'}
+        </button>
+      </div>
 
-      <div className="projects-row" ref={rowRef}>
-        {projects.map((project, index) => (
-          <div
-            key={index}
-            className="project-card"
-            style={{ '--delay': `${index * 0.1}s` } as React.CSSProperties}
-          >
-            {/* Thumbnail */}
-            {project.image?.url ? (
-              <img
-                src={project.image.url}
-                alt={project.title}
-                className="project-thumbnail"
-              />
-            ) : (
-              <div className="project-thumbnail-fallback">🗂️</div>
-            )}
+      {!isExpanded && (
+        <>
+          <button className="row-arrow left" onClick={() => scroll('left')}>❮</button>
+          <button className="row-arrow right" onClick={() => scroll('right')}>❯</button>
+        </>
+      )}
 
-            {/* Card Body */}
-            <div className="project-body">
-              <h3>{project.title}</h3>
-
-              {project.projectDescription && (
-                <p className="project-description">{project.projectDescription}</p>
+      <div className={`home-cert-row ${isExpanded ? 'expanded-grid' : ''}`} ref={scrollRef}>
+        {projects.map((project, index) => {
+          const CardContent = (
+            <>
+              <div className="project-thumbnail-container">
+                {project.image?.url ? (
+                  <img
+                    src={project.image.url}
+                    alt={project.title}
+                    className="project-thumbnail"
+                  />
+                ) : (
+                <div className="project-thumbnail-fallback">🗂️</div>
               )}
-
-              {project.techUsed?.text && (
-                <div className="tech-used">
-                  {project.techUsed.text
-                    .split(', ')
-                    .map((tech: string, i: number) => (
-                      <span key={i} className="tech-badge">
-                        {techIcons[tech] || '🔧'} {tech}
-                      </span>
-                    ))}
+            </div>
+            <div className="project-body" style={{ position: 'relative' }}>
+              <h3>{project.title}</h3>
+              {project.link && (
+                <div className="project-link-icon">
+                  <FaExternalLinkAlt />
                 </div>
               )}
             </div>
-          </div>
-        ))}
+          </>
+        );
+
+        if (project.link) {
+            return (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                key={index}
+                className="home-cert-card project-card-custom"
+              >
+                {CardContent}
+              </a>
+            );
+          }
+
+          return (
+            <div
+              key={index}
+              className="home-cert-card project-card-custom"
+            >
+              {CardContent}
+            </div>
+          );
+        })}
       </div>
-    </div>
+    </section>
   );
 };
 

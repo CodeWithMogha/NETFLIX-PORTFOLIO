@@ -99,7 +99,7 @@
 .horizontal-timeline-item {
   position: relative;
   min-width: 360px;
-  height: 480px;
+  height: 580px;
   display: flex;
   flex-direction: column;
 }
@@ -382,4 +382,89 @@
   font-size: 0.95rem;
   line-height: 1.7;
   white-space: pre-line;
+}
+
+/* ── Mobile Responsive ── */
+@media (max-width: 768px) {
+  .timeline-container {
+    padding: 0 16px;
+    margin-top: 1rem;
+  }
+
+  .horizontal-timeline-section {
+    padding: 0 16px 30px 16px;
+  }
+
+  .horizontal-timeline-row {
+    padding: 0 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 16px;
+  }
+
+  .horizontal-timeline-item {
+    min-width: 260px;
+    height: 520px;
+  }
+
+  .timeline-content {
+    width: 240px;
+    padding: 16px;
+  }
+
+  .horizontal-timeline-title {
+    font-size: 0.9rem;
+  }
+
+  .horizontal-timeline-date {
+    font-size: 0.78rem;
+  }
+
+  .horizontal-timeline-desc {
+    font-size: 0.78rem;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+  }
+
+  /* Modal */
+  .timeline-modal-backdrop {
+    padding: 20px 12px;
+  }
+
+  .timeline-modal {
+    max-width: 100%;
+    max-height: 90vh;
+  }
+
+  .timeline-modal-body {
+    padding: 20px 16px 28px;
+  }
+
+  .timeline-modal-header {
+    padding: 16px 16px 12px;
+  }
+
+  .timeline-modal-title {
+    font-size: 1.2rem;
+  }
+
+  .timeline-modal-desc {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .horizontal-timeline-item {
+    min-width: 220px;
+    height: 480px;
+  }
+
+  .timeline-content {
+    width: 200px;
+    padding: 14px;
+  }
+
+  .horizontal-timeline-title {
+    font-size: 0.82rem;
+  }
 }

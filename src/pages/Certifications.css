@@ -43,7 +43,7 @@
 /* ================= GRID ================= */
 .certifications-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 26px;
 }
 
@@ -51,8 +51,8 @@
 .certification-card {
   background: linear-gradient(180deg, #1f1f1f, #181818);
   border-radius: 14px;
-  height: 235px;
-  padding: 22px;
+  height: 250px;
+  padding: 24px;
 
   display: flex;
   flex-direction: column;

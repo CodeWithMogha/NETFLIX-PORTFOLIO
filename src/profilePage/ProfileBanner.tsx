@@ -7,7 +7,7 @@ import { getProfileBanner } from '../queries/getProfileBanner';
 type BannerData = {
   headline: string;
   profileSummary: string;
-  resumeLink: { url: string };
+  resumeLink: string;
   linkedinLink: string;
 };
 
@@ -15,7 +15,12 @@ const ProfileBanner: React.FC = () => {
   const [bannerData, setBannerData] = useState<BannerData | null>(null);
 
   useEffect(() => {
-    getProfileBanner().then(setBannerData);
+    getProfileBanner().then((data) => {
+      if (data && !data.resumeLink) {
+        console.error("Resume link is missing from Hygraph data");
+      }
+      setBannerData(data);
+    });
   }, []);
 
   if (!bannerData) return null;
@@ -26,18 +31,37 @@ const ProfileBanner: React.FC = () => {
         <h1 className="banner-headline">{bannerData.headline}</h1>
 
         <p className="banner-description">
-        {bannerData.profileSummary}
-      </p>
+          {bannerData.profileSummary}
+        </p>
 
         <div className="banner-buttons">
-          <PlayButton
-            label="Resume"
-            onClick={() => window.open(bannerData.resumeLink.url, '_blank')}
-          />
-          <MoreInfoButton
-            label="LinkedIn"
-            onClick={() => window.open(bannerData.linkedinLink, '_blank')}
-          />
+          {bannerData.resumeLink && (
+            <a
+              href={bannerData.resumeLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: 'none' }}
+            >
+              <PlayButton
+                label="Resume"
+                onClick={() => {}}
+              />
+            </a>
+          )}
+
+          {bannerData.linkedinLink && (
+            <a
+              href={bannerData.linkedinLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ textDecoration: 'none' }}
+            >
+              <MoreInfoButton
+                label="LinkedIn"
+                onClick={() => {}}
+              />
+            </a>
+          )}
         </div>
       </div>
     </div>

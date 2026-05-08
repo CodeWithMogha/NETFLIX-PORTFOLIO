@@ -155,11 +155,110 @@ h1 {
   min-height: 200px;
 }
 
+/* ── Mobile: Tablets ── */
+@media (max-width: 1024px) {
+  .hero-content-positioned {
+    left: 40px;
+    right: 40px;
+    padding-bottom: 8vw;
+  }
+}
 
-
-
+/* ── Mobile: Phones ── */
 @media (max-width: 768px) {
+  .profile-page {
+    height: 55vh; /* Reduced to avoid excessive video zoom */
+    min-height: 400px;
+    padding-bottom: 0;
+  }
+
+  h1 {
+    font-size: clamp(1.4rem, 6vw, 2.5rem);
+  }
+
+  .hero-content-positioned {
+    left: 16px;
+    right: 16px;
+    padding-bottom: 12vw;
+  }
+
+  .netflix-controls {
+    bottom: calc(12vw + 8px); /* matches padding + banner bottom padding */
+    right: 16px;
+    height: 34px; 
+  }
+
+  .netflix-mute-btn {
+    width: 26px !important;
+    height: 26px !important;
+    min-width: 26px !important;
+    max-width: 26px !important;
+    min-height: 26px !important;
+    max-height: 26px !important;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .netflix-mute-btn svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .netflix-rating-badge {
+    font-size: 0.6rem;
+    padding: 0 8px;
+    margin-left: 8px;
+    height: 24px;
+  }
+
   .profile-rows-container {
     margin-top: -5vw;
+  }
+}
+
+/* ── Very small phones ── */
+@media (max-width: 420px) {
+  .profile-page {
+    height: 45vh; /* Reduced further */
+    min-height: 320px;
+  }
+
+  .hero-content-positioned {
+    left: 12px;
+    right: 12px;
+    padding-bottom: 16vw;
+  }
+
+  .netflix-controls {
+    bottom: calc(16vw + 8px);
+    right: 12px;
+    height: 32px;
+  }
+
+  .netflix-mute-btn {
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    max-width: 24px !important;
+    min-height: 24px !important;
+    max-height: 24px !important;
+  }
+
+  .netflix-mute-btn svg {
+    width: 12px !important;
+    height: 12px !important;
+  }
+
+  .netflix-rating-badge {
+    font-size: 0.55rem;
+    padding: 0 6px;
+    margin-left: 6px;
+    height: 22px;
   }
 }

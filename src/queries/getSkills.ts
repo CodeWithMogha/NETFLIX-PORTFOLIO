@@ -25,5 +25,5 @@ export async function getSkills() {
     }
   );
 
-  return data.skills;
+  return data.skills ?? [];
 }

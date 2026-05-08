@@ -1,6 +1,6 @@
 import React from "react";
 import "./footer.css";
-import { FaFacebookF, FaGithub } from "react-icons/fa";
+import { FaLinkedin, FaGithub } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   return (
@@ -9,8 +9,12 @@ const Footer: React.FC = () => {
 
         {/* Social */}
         <div className="nf-social">
-          <FaFacebookF />
-          <FaGithub />
+          <a href="https://www.linkedin.com/in/amiteshmogha/" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin />
+          </a>
+          <a href="https://github.com/CodeWithMogha" target="_blank" rel="noopener noreferrer">
+            <FaGithub />
+          </a>
         </div>
 
         {/* Links */}
@@ -45,7 +49,7 @@ const Footer: React.FC = () => {
 
         {/* Copyright */}
         <p className="nf-copy">
-          © 2025 Amitesh Productions. Portfolio Cinematic Experience.
+          © 2026 Amitesh Productions. Portfolio Cinematic Experience.
         </p>
 
       </div>

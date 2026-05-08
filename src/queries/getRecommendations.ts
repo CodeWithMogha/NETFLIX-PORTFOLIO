@@ -11,7 +11,7 @@ export const getRecommendations = async (): Promise<Recommendation[]> => {
         organization
         message
         linkedin
-        email
+        link
         photo {
           url
         }
@@ -21,7 +21,6 @@ export const getRecommendations = async (): Promise<Recommendation[]> => {
 
     try {
         const data = await hygraphClient.request<{ recommendations: Recommendation[] }>(query);
-        console.log("Recommendations fetched:", data.recommendations);
         return data.recommendations;
     } catch (error) {
         console.error("Error fetching recommendations details:", error);

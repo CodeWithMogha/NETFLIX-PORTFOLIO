@@ -1,49 +1,106 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './Blogs.css';
-import { FaMedium, FaDev } from 'react-icons/fa';
-
-const blogs = [
-  {
-    title: "Make Your Rails Console Look Better",
-    platform: "Medium",
-    icon: <FaMedium />,
-    link: "https://medium.com/@chintusamala96/make-your-rails-console-look-better-510988d40566",
-    description: "Learn tips to customize your Rails console for a better experience.",
-  },
-  {
-    title: "Docker Fundas - My Version",
-    platform: "Medium",
-    icon: <FaMedium />,
-    link: "https://medium.com/@chintusamala96/docker-fundas-my-version-7b9262bd90d4",
-    description: "An introductory guide to Docker fundamentals from my perspective.",
-  },
-  {
-    title: "Grape Gem in Ruby on Rails: Handling User Model and API Endpoint",
-    platform: "Dev.to",
-    icon: <FaDev />,
-    link: "https://dev.to/samalasumanth0262/grape-gem-in-ruby-on-rails-handling-user-model-and-api-endpoint-g6d",
-    description: "A guide to using the Grape gem for API development in Ruby on Rails.",
-  },
-];
+import { getBlogs } from '../queries/getBlogs';
+import { Blog } from '../types';
 
 const Blogs: React.FC = () => {
+  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  useEffect(() => {
+    getBlogs()
+      .then((data) => {
+        setBlogs(data);
+        setLoading(false);
+        setError(false);
+      })
+      .catch((err) => {
+        console.error("Blogs.tsx: Hygraph Blogs Error:", err);
+        setError(true);
+        setLoading(false);
+      });
+  }, []);
+
+  const scroll = (dir: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const scrollAmount = 600;
+      scrollRef.current.scrollBy({
+        left: dir === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  if (loading) {
+    return <div className="home-cert-section" style={{ textAlign: 'center', color: '#fff', padding: '60px' }}>Loading blogs...</div>;
+  }
+
+  if (error) {
+    return (
+      <div className="home-cert-section" style={{ textAlign: 'center', color: '#e50914', padding: '60px' }}>
+        Unable to load blogs.
+      </div>
+    );
+  }
+
+  // If zero blogs, show a helpful message instead of nothing
+  if (blogs.length === 0) {
+    return (
+      <section className="home-cert-section">
+        <div className="section-header-flex">
+          <h2 className="row-title">Blogs</h2>
+        </div>
+        <div style={{ padding: '20px', color: '#888', border: '1px dashed #333', borderRadius: '8px', textAlign: 'center' }}>
+          No published blogs found in Hygraph.
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <div className="blogs-container">
-      <h2 className="blogs-title">✍️ My Blog Posts</h2>
-      <p className="blogs-intro">A collection of my thoughts and tutorials on software development.</p>
-      <div className="blogs-grid">
+    <section className="home-cert-section">
+      <div className="section-header-flex">
+        <h2 className="row-title">Blogs</h2>
+        <button
+          className="expand-section-btn"
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          {isExpanded ? 'Collapse ⌃' : 'View All ⌄'}
+        </button>
+      </div>
+
+      {!isExpanded && (
+        <>
+          <button className="row-arrow left" onClick={() => scroll('left')}>❮</button>
+          <button className="row-arrow right" onClick={() => scroll('right')}>❯</button>
+        </>
+      )}
+
+      <div className={`home-cert-row ${isExpanded ? 'expanded-grid' : ''}`} ref={scrollRef}>
         {blogs.map((blog, index) => (
-          <a href={blog.link} key={index} target="_blank" rel="noopener noreferrer" className="blog-card" style={{ '--delay': `${index * 0.2}s` } as React.CSSProperties}>
-            <div className="blog-icon animated-icon">{blog.icon}</div>
-            <div className="blog-info animated-text">
-              <h3 className="blog-title">{blog.title}</h3>
-              <p className="blog-description">{blog.description}</p>
-              <span className="blog-platform">{blog.platform}</span>
+          <div 
+            key={index} 
+            className="home-cert-card blog-card-netflix-custom" 
+            onClick={() => blog.slug && window.open(`/blog/${blog.slug}`, '_blank')}
+            style={{ cursor: 'pointer' }}
+          >
+            <div className="blog-card-img-container">
+              {blog.img?.url ? (
+                <img src={blog.img.url} alt={blog.title} className="blog-card-img-fit" />
+              ) : (
+                <div className="blog-card-img-placeholder">✍️</div>
+              )}
             </div>
-          </a>
+            <h3>{blog.title || 'Untitled'}</h3>
+            <p className="cert-issuer">{blog.description || 'No summary available.'}</p>
+            <span className="cert-year">{blog.published ? new Date(blog.published).toLocaleDateString() : 'Recent'}</span>
+          </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

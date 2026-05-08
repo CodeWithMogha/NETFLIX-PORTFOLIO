@@ -5,6 +5,36 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 
+// Suppress browser extension runtime errors globally
+const originalOnError = window.onerror;
+window.onerror = (message, source, lineno, colno, error) => {
+  const isExtensionError =
+    (typeof message === 'string' && message.includes('_0x')) ||
+    (typeof source === 'string' && (
+      source.includes('webkit-masked-url') ||
+      source.includes('chrome-extension') ||
+      source.includes('moz-extension') ||
+      source.includes('safari-extension')
+    ));
+
+  if (isExtensionError) return true; // suppress silently
+
+  if (originalOnError) {
+    return originalOnError(message, source, lineno, colno, error);
+  }
+  return false;
+};
+
+window.addEventListener('unhandledrejection', (event) => {
+  const reason = event.reason?.message || event.reason || '';
+  if (
+    typeof reason === 'string' &&
+    (reason.includes('_0x') || reason.includes('webkit-masked-url'))
+  ) {
+    event.preventDefault(); // suppress silently
+  }
+});
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

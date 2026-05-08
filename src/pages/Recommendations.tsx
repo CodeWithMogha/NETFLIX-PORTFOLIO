@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import './Recommendations.css';
 import { getRecommendations } from '../queries/getRecommendations';
 import { Recommendation } from '../types';
-import { FaLinkedin, FaEnvelope, FaQuoteLeft } from 'react-icons/fa';
+import { FaLinkedin, FaEnvelope, FaQuoteLeft, FaLink } from 'react-icons/fa';
 
 const Recommendations: React.FC = () => {
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
@@ -50,7 +50,12 @@ const Recommendations: React.FC = () => {
 
         <div className="recommendations-row" ref={scrollRef}>
           {recommendations.map((rec, index) => (
-            <div key={index} className="recommendation-card-integrated">
+            <div 
+              key={index} 
+              className="recommendation-card-integrated"
+              onClick={() => rec.link && window.open(rec.link, '_blank')}
+              style={{ cursor: rec.link ? 'pointer' : 'default' }}
+            >
               <div className="rec-quote-icon"><FaQuoteLeft /></div>
 
               <div className="rec-header">
@@ -69,18 +74,18 @@ const Recommendations: React.FC = () => {
               </div>
 
               <div className="rec-body">
-                <p>"{rec.message}"</p>
+                <p>{rec.message}</p>
               </div>
 
               <div className="rec-footer">
                 {rec.linkedin && (
-                  <a href={rec.linkedin} target="_blank" rel="noopener noreferrer" className="rec-icon">
+                  <a href={rec.linkedin} target="_blank" rel="noopener noreferrer" className="rec-icon" onClick={(e) => e.stopPropagation()}>
                     <FaLinkedin />
                   </a>
                 )}
-                {rec.email && (
-                  <a href={`mailto:${rec.email}`} className="rec-icon">
-                    <FaEnvelope />
+                {rec.link && (
+                  <a href={rec.link} target="_blank" rel="noopener noreferrer" className="rec-icon" onClick={(e) => e.stopPropagation()}>
+                    <FaLink />
                   </a>
                 )}
               </div>

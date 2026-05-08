@@ -21,8 +21,9 @@ const Skills: React.FC = () => {
   if (skillsData.length === 0) return <div>Loading...</div>;
 
   const skillsByCategory = skillsData.reduce((acc: any, skill: any) => {
-    if (!acc[skill.category]) acc[skill.category] = [];
-    acc[skill.category].push(skill);
+    const categoryName = skill.category || 'Other Skills';
+    if (!acc[categoryName]) acc[categoryName] = [];
+    acc[categoryName].push(skill);
     return acc;
   }, {});
 
@@ -35,7 +36,13 @@ const Skills: React.FC = () => {
           <div className="skills-grid">
             {skillsByCategory[category].map((skill: any, idx: number) => (
               <div key={idx} className="skill-card">
-                <div className="icon"><FaReact /></div>
+                <div className="icon">
+                  {skill.image?.url ? (
+                    <img src={skill.image.url} alt={skill.title} className="skill-grid-logo" />
+                  ) : (
+                    <FaReact />
+                  )}
+                </div>
                 <h3 className="skill-name">
                   {skill.title.split('').map((letter: string, i: number) => (
                     <span

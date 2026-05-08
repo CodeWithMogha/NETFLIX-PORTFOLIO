@@ -22,5 +22,5 @@ export async function getProfileBanner() {
     { Authorization: `Bearer ${token}` }
   );
 
-  return data.profileBanners[0];
+  return data.profileBanners ? data.profileBanners[0] : null;
 }

@@ -6,8 +6,13 @@ import atomicHabits from '../images/atomic_habits.jpg';
 import richDadPoorDad from '../images/rich_dad_poor_dad.jpg';
 import alchemist from '../images/alchemist.jpg';
 import eatThatFrog from '../images/eat_that_frog.jpg';
-import vijayanikiAidhuMetlu from '../images/vijayaniki_aidu_metlu.jpg';
-import venneloAdapilla from '../images/vennelo_adapilla.jpeg';
+import neverFinished from '../images/d1.jpg';
+import cantHurtMe from '../images/d2.jpg';
+import psychOfMoney from '../images/p1.jpeg';
+import lawsHumanNature from '../images/L.jpg';
+
+
+
 
 const books = [
   {
@@ -35,16 +40,28 @@ const books = [
     description: "A motivational book on overcoming procrastination.",
   },
   {
-    title: "Vijayaniki Aidhu Metlu",
-    author: "Yandamoori Veerendranath",
-    imgSrc: vijayanikiAidhuMetlu,
-    description: "An inspirational Telugu book for personal growth.",
+    title: "Never Finished",
+    author: "David Goggins",
+    imgSrc: neverFinished,
+    description: "Unshackle Your Mind and Win the War Within.",
   },
   {
-    title: "Vennelo Adapilla",
-    author: "Yandamoori Veerendranath",
-    imgSrc: venneloAdapilla,
-    description: "A classic Telugu romantic novel that touches the heart.",
+    title: "Can't Hurt Me",
+    author: "David Goggins",
+    imgSrc: cantHurtMe,
+    description: "Master Your Mind and Defy the Odds.",
+  },
+  {
+    title: "The Psychology of Money",
+    author: "Morgan Housel",
+    imgSrc: psychOfMoney,
+    description: "Timeless lessons on wealth, greed, and happiness.",
+  },
+  {
+    title: "The Laws of Human Nature",
+    author: "Robert Greene",
+    imgSrc: lawsHumanNature,
+    description: "Understand people's drives and motivations, even when they are unconscious.",
   },
 ];
 

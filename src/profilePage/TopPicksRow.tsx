@@ -5,9 +5,13 @@ import { getSkills } from '../queries/getSkills';
 import { getCertifications } from '../queries/getCertifications';
 import WorkExperience from '../pages/WorkExperience';
 import Projects from '../pages/Projects';
-import { FaUniversity } from 'react-icons/fa';
+import { FaUniversity, FaExternalLinkAlt } from 'react-icons/fa';
 import ContactSection from '../components/ContactSection';
+import GithubSection from '../components/GithubSection';
+import Learning from '../pages/Learning';
+import MentorshipSection from '../components/MentorshipSection';
 import Recommendations from '../pages/Recommendations';
+import TechUsed from '../pages/TechUsed';
 
 // ── Music album images ──────────────────────────────────────────────
 import album21Pilots from '../images/music/21 Pilots Album Cover.jpg';
@@ -31,12 +35,17 @@ import atomicHabits from '../images/atomic_habits.jpg';
 import richDadPoorDad from '../images/rich_dad_poor_dad.jpg';
 import alchemist from '../images/alchemist.jpg';
 import eatThatFrog from '../images/eat_that_frog.jpg';
-import vijayanikiAidhuMetlu from '../images/vijayaniki_aidu_metlu.jpg';
-import venneloAdapilla from '../images/vennelo_adapilla.jpeg';
+import neverFinished from '../images/d1.jpg';
+import cantHurtMe from '../images/d2.jpg';
+import psychOfMoney from '../images/p1.jpeg';
+import lawsHumanNature from '../images/L.jpg';
+
+
+
 
 /* ================= PROFILE TYPE ================= */
 
-type ProfileType = 'recruiter' | 'developer' | 'stalker' | 'adventure';
+type ProfileType = 'recruiter' | 'developer' | 'stalker' | 'adventurer';
 
 interface TopPicksRowProps {
   profile: ProfileType;
@@ -82,8 +91,11 @@ const books = [
   { title: 'Rich Dad Poor Dad', author: 'Robert Kiyosaki', imgSrc: richDadPoorDad, description: 'An eye-opener on wealth and financial literacy.' },
   { title: 'The Alchemist', author: 'Paulo Coelho', imgSrc: alchemist, description: "A magical journey of following one's dreams." },
   { title: 'Eat That Frog', author: 'Brian Tracy', imgSrc: eatThatFrog, description: 'A motivational book on overcoming procrastination.' },
-  { title: 'Vijayaniki Aidhu Metlu', author: 'Yandamoori Veerendranath', imgSrc: vijayanikiAidhuMetlu, description: 'An inspirational Telugu book for personal growth.' },
-  { title: 'Vennelo Adapilla', author: 'Yandamoori Veerendranath', imgSrc: venneloAdapilla, description: 'A classic Telugu romantic novel.' },
+  { title: 'Never Finished', author: 'David Goggins', imgSrc: neverFinished, description: 'Unshackle Your Mind and Win the War Within.' },
+
+  { title: "Can't Hurt Me", author: 'David Goggins', imgSrc: cantHurtMe, description: 'Master Your Mind and Defy the Odds.' },
+  { title: 'The Psychology of Money', author: 'Morgan Housel', imgSrc: psychOfMoney, description: 'Timeless lessons on wealth, greed, and happiness.' },
+  { title: 'The Laws of Human Nature', author: 'Robert Greene', imgSrc: lawsHumanNature, description: "Understand people's drives and motivations." },
 ];
 
 /* ================= COMPONENT ================= */
@@ -115,7 +127,11 @@ const TopPicksRow: React.FC<TopPicksRowProps> = ({ profile }) => {
   return (
     <>
 
-      {/* ================= SKILLS ================= */}
+      {/* ================= HOW I BUILT THIS (ADVENTURER ONLY - TOP) ================= */}
+      {profile === 'adventurer' && <TechUsed />}
+
+
+      {/* ================= SKILLS (RECRUITER, DEVELOPER ONLY - NOT ADVENTURER) ================= */}
       {(profile === 'recruiter' || profile === 'developer') && (
         <section className="top10-section">
           <div className="section-header-flex">
@@ -153,7 +169,7 @@ const TopPicksRow: React.FC<TopPicksRowProps> = ({ profile }) => {
         </section>
       )}
 
-      {/* ================= CERTIFICATIONS ================= */}
+      {/* ================= CERTIFICATIONS (RECRUITER ONLY - NOT ADVENTURER) ================= */}
       {profile === 'recruiter' && (
         <section className="home-cert-section">
           <div className="section-header-flex">
@@ -182,6 +198,9 @@ const TopPicksRow: React.FC<TopPicksRowProps> = ({ profile }) => {
                 <h3>{cert.title}</h3>
                 <p className="cert-issuer">{cert.issuer}</p>
                 <span className="cert-year">Issued: {cert.year}</span>
+                <div className="cert-link-icon">
+                  <FaExternalLinkAlt />
+                </div>
               </a>
             ))}
           </div>
@@ -189,11 +208,13 @@ const TopPicksRow: React.FC<TopPicksRowProps> = ({ profile }) => {
       )}
 
       {/* ================= PROJECTS ================= */}
-      {profile === 'developer' && (
-        <section className="home-cert-section">
-          <h2 className="row-title">Projects</h2>
+      {(profile === 'developer' || profile === 'recruiter') && (
+        <>
           <Projects />
-        </section>
+          
+          {/* ================= GITHUB ACTIVITY (DEVELOPER ONLY) ================= */}
+          {profile === 'developer' && <GithubSection username="CodeWithMogha" />}
+        </>
       )}
 
       {/* ================= EXPERIENCE ================= */}
@@ -268,13 +289,19 @@ const TopPicksRow: React.FC<TopPicksRowProps> = ({ profile }) => {
         </section>
       )}
 
-      {/* ================= EXPERIENCE (ALL PROFILES BUT ADVENTURE) ================= */}
+
+      {/* ================= CURRENTLY LEARNING (DEVELOPER ONLY) ================= */}
+      {profile === 'developer' && <Learning />}
+      {/* ================= RECOMMENDATIONS (RECRUITER ONLY) ================= */}
+      {profile === 'recruiter' && <Recommendations />}
+
+      {/* ================= EXPERIENCE (STALKER, RECRUITER, DEVELOPER - NOT ADVENTURER) ================= */}
       {(profile === 'stalker' || profile === 'recruiter' || profile === 'developer') && (
         <WorkExperience isHorizontal={true} />
       )}
 
-      {/* ================= RECOMMENDATIONS (RECRUITER ONLY) ================= */}
-      {profile === 'recruiter' && <Recommendations />}
+      {/* ================= MENTORSHIP (ADVENTURER ONLY) ================= */}
+      {profile === 'adventurer' && <MentorshipSection />}
 
       {/* ================= CONTACT (ALL PROFILES) ================= */}
       <ContactSection />

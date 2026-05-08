@@ -8,7 +8,7 @@ import TopPicksRow from './TopPicksRow';
 import { VscUnmute, VscMute } from 'react-icons/vsc';
 
 
-type ProfileType = 'recruiter' | 'developer' | 'stalker' | 'adventure';
+type ProfileType = 'recruiter' | 'developer' | 'stalker' | 'adventurer';
 
 const ProfilePage: React.FC = () => {
   const location = useLocation();
@@ -25,8 +25,8 @@ const ProfilePage: React.FC = () => {
       ? 'developer'
       : profileName === 'stalker'
         ? 'stalker'
-        : profileName === 'adventure'
-          ? 'adventure'
+        : profileName === 'adventurer'
+          ? 'adventurer'
           : 'recruiter';
 
   const toggleMute = () => {
@@ -55,9 +55,10 @@ const ProfilePage: React.FC = () => {
           loop
           playsInline
           muted={isMuted}
+          preload="none"
           className="hero-video"
         >
-          {backgroundVideo && <source src={backgroundVideo} />}
+          {backgroundVideo && <source src={backgroundVideo} type="video/mp4" />}
         </video>
 
         <div className="hero-overlay" />

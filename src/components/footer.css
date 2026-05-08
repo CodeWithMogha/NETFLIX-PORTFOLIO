@@ -1,7 +1,7 @@
 /* ===== NETFLIX FOOTER BASE ===== */
 .nf-footer {
   background: #0f0f0f;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.6); /* Increased from 0.08 to create a visible white dividing line */
   padding: 40px 0 20px;
   display: flex;
   justify-content: center;
@@ -89,8 +89,59 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 768px) {
+  .nf-footer {
+    padding: 30px 0 20px;
+  }
+
+  .nf-footer-inner {
+    padding: 0 5%;
+  }
+
+  .nf-social {
+    justify-content: flex-start;
+    gap: 28px;
+    font-size: 1.4rem;
+    margin-bottom: 28px;
+  }
+
   .nf-links {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 20px;
+    margin-bottom: 24px;
+  }
+
+  .nf-links ul {
+    margin: 0;
+  }
+
+  .nf-links li {
+    font-size: 0.78rem;
+    margin-bottom: 10px;
+  }
+
+  .nf-service {
+    display: block;
+    margin: 0 0 20px 0;
+    width: fit-content;
+  }
+
+  .nf-copy {
+    text-align: left;
+    font-size: 0.73rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .nf-footer-inner {
+    padding: 0 4%;
+  }
+
+  .nf-links {
+    gap: 8px 14px;
+  }
+
+  .nf-links li {
+    font-size: 0.72rem;
   }
 }

@@ -55,3 +55,15 @@
   text-align: center;
   transform: translateX(-12px);
 }
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+  .netflix-logo {
+    width: 85vw;
+    max-width: 400px;
+  }
+  .tap-text {
+    font-size: 0.78rem;
+    transform: translateX(-6px);
+  }
+}
