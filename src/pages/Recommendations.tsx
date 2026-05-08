@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import './Recommendations.css';
 import { getRecommendations } from '../queries/getRecommendations';
 import { Recommendation } from '../types';
-import { FaLinkedin, FaEnvelope, FaQuoteLeft, FaLink } from 'react-icons/fa';
+import { FaLinkedin, FaQuoteLeft, FaLink } from 'react-icons/fa';
 
 const Recommendations: React.FC = () => {
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
